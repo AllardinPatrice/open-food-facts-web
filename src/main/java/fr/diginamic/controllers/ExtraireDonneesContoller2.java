@@ -8,6 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Classe test de servlet avec 2 servlets (2ème servlet)
+ * 
+ * @author Patrice
+ *
+ */
 @WebServlet(urlPatterns = "/extraire2/*")
 public class ExtraireDonneesContoller2 extends HttpServlet {
 	@Override
@@ -27,6 +33,6 @@ public class ExtraireDonneesContoller2 extends HttpServlet {
 		// .write("<h1>Categorie à extraire</h1>" + "<ul>" + "<li>identifiant="
 		// + idCategorie + "</li>" + "</ul>");
 
-		resp.getWriter().write(utilisateur.toString());
+		resp.getWriter().write("<h1>" + utilisateur.toString() + "</h1>");
 	}
 }
