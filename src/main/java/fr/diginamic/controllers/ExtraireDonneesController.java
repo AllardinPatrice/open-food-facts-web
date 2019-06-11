@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Classe test de servlet avec 2 servlets (1er servlet)
+ * 
+ * @author Patrice
+ *
+ */
 @WebServlet(urlPatterns = "/extraire/*")
 public class ExtraireDonneesController extends HttpServlet {
 	@Override
