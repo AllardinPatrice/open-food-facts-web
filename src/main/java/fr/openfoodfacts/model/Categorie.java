@@ -9,8 +9,9 @@ package fr.openfoodfacts.model;
 
 public class Categorie {
 
+	/** Id de categorie */
 	private long id;
-
+	/** Nom de categorie */
 	private String nom;
 
 	/**

@@ -1,7 +1,7 @@
 package fr.openfoodfacts.model;
 
 /**
- * Classe Catégorie
+ * Classe Ingredient
  * 
  * @author Patrice
  *
@@ -9,8 +9,9 @@ package fr.openfoodfacts.model;
 
 public class Ingredient {
 
+	/** Id d'ingrédient */
 	private long id;
-
+	/** Nom d'ingrédient */
 	private String nom;
 
 	/**

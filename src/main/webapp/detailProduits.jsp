@@ -11,9 +11,9 @@
 	crossorigin="anonymous">
 
 <script>
-function chargerMarques() {
-	
-}
+	function chargerMarques() {
+
+	}
 </script>
 
 </head>
@@ -22,52 +22,44 @@ function chargerMarques() {
 	<%
 		List<Produit> listePro = (List<Produit>) request.getAttribute("produits");
 		List<Ingredient> listeIng = (List<Ingredient>) request.getAttribute("ingredients");
-	
 	%>
-
 	<form method="POST"
 		action="http://localhost:8080/open-food-facts-web/produit/">
 		<div class="form-group col-md-4">
-			<label for="inputState">Produit sélectionné</label> <ul>
+			<label for="inputState">Produit sélectionné</label>
+			<ul>
 				<%
-				for (Produit prod : listePro) {
+					for (Produit prod : listePro) {
 				%>
-
-				<li>ID :  <%=prod.getId()%></li>
+				<li>ID : <%=prod.getId()%></li>
 				<li>Nom : <%=prod.getNom()%></li>
 				<li>Catégorie : <%=prod.getCategorie()%></li>
 				<li>Marque : <%=prod.getMarque()%></li>
-				<li>Grade nutritionnel :  <%=prod.getGradeNutritionnnel()%></li>
-				<li>Energie :  <%=prod.getEnergie()%></li>
-				<li>Graisse :  <%=prod.getGraisse()%></li>
-
+				<li>Grade nutritionnel : <%=prod.getGradeNutritionnnel()%></li>
+				<li>Energie : <%=prod.getEnergie()%></li>
+				<li>Graisse : <%=prod.getGraisse()%></li>
 				<%
 					}
 				%>
-
 			</ul>
 			<br>
 		</div>
-		
+
 		<div class="form-group col-md-4">
-			<label for="inputState">Ingrédients</label> <ul>
+			<label for="inputState">Ingrédients</label>
+			<ul>
 				<%
-				for (Ingredient ingr : listeIng) {
+					for (Ingredient ingr : listeIng) {
 				%>
-
-					<li><%=ingr.getNom()%></li>
-				
+				<li><%=ingr.getNom()%></li>
 				<%
 					}
 				%>
-
 			</ul>
 			<br>
 		</div>
-
-		
 	</form>
-	
+
 </body>
 
 </html>

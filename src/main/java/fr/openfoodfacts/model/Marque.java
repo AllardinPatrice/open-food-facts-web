@@ -9,8 +9,9 @@ package fr.openfoodfacts.model;
 
 public class Marque {
 
+	/** Id de marque */
 	private long id;
-
+	/** Nom de marque */
 	private String nom;
 
 	/**
