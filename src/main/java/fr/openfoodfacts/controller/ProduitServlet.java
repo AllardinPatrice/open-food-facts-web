@@ -24,7 +24,11 @@ public class ProduitServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String selectedProd = req.getParameter("selectedProd");
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String selectedProd = req.getParameter("idProduit");
 		Integer idProduit = Integer.parseInt(selectedProd);
 
 		ProduitDao produitDao = new ProduitDao();
@@ -34,10 +38,5 @@ public class ProduitServlet extends HttpServlet {
 
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/detailProduits.jsp");
 		requestDispatcher.forward(req, resp);
-	}
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 	}
 }

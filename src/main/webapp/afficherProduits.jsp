@@ -48,7 +48,7 @@
 					%>
 					<tr>
 						<td><%=prod.getId()%></td>
-						<td><%=prod.getNom()%></td>
+						<td><a href="http://localhost:8080/open-food-facts-web/produit/?idProduit=<%=prod.getId()%>"><%=prod.getNom()%></a></td>
 						<td><%=prod.getCategorie()%></td>
 						<td><%=prod.getMarque()%></td>
 						<td><%=prod.getGradeNutritionnnel()%></td>
