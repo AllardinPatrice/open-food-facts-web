@@ -27,22 +27,26 @@ function chargerMarques() {
 	<form method="POST"
 		action="http://localhost:8080/open-food-facts-web/produit/">
 		<div class="form-group col-md-4">
-			<label for="inputState">Choisissez un produit</label> <select
-				id="inputState" class="form-control" name="selectedProd">
+			<label for="inputState">Produit sélectionné</label> <ul>
 				<%
 				for (Produit prod : listePro) {
 				%>
 
-				<option value=<%=prod.getId()%>>
-					<%=prod.getNom()%></option>
+				<li>ID :  <%=prod.getId()%></li>
+				<li>Nom : <%=prod.getNom()%></li>
+				<li>Catégorie : <%=prod.getCategorie()%></li>
+				<li>Marque : <%=prod.getMarque()%></li>
+				<li>Grade nutritionnel :  <%=prod.getGradeNutritionnnel()%></li>
+				<li>Energie :  <%=prod.getEnergie()%></li>
+				<li>Graisse :  <%=prod.getGraisse()%></li>
 
 				<%
 					}
 				%>
 
-			</select>
+			</ul>
 			<br>
-			<button type="submit" class="btn btn-primary">Sélectionner</button>
+		
 	</form>
 	
 </body>

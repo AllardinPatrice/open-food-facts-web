@@ -111,4 +111,54 @@ public class ProduitDao {
 
 	}
 
+	public List<Produit> recupererParID(Integer idProduit) {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Produit> listeProduit = new ArrayList<>();
+
+		try {
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
+					"SELECT PDT_ID, PDT_NOM, CTG_NOM, MRQ_NOM, PDT_NUTRITIONGRADE, PDT_ENERGIE, PDT_GRAISSE FROM openfoodfactbdd.produit INNER JOIN categorie ON CTG_ID = PDT_CATEGORIE INNER JOIN marque on PDT_MARQUE = MRQ_ID where pdt_id=?");
+			preparedStatement.setInt(1, idProduit);
+			resultSet = preparedStatement.executeQuery();
+			ConnectionUtils.doCommit();
+			while (resultSet.next()) {
+				Integer id = resultSet.getInt("PDT_ID");
+				String nom = resultSet.getString("PDT_NOM");
+				String categorie = resultSet.getString("CTG_NOM");
+				String marque = resultSet.getString("MRQ_NOM");
+				String nutritionGrade = resultSet.getString("PDT_NUTRITIONGRADE");
+				Double energie = resultSet.getDouble("PDT_ENERGIE");
+				Double graisse = resultSet.getDouble("PDT_GRAISSE");
+
+				listeProduit.add(new Produit(id, nom, categorie, marque, nutritionGrade, energie, graisse));
+			}
+			return listeProduit;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
+	}
+
 }
