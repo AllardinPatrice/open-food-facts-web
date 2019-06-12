@@ -1,4 +1,4 @@
-package fr.diginamic.controllers;
+package fr.openfoodfacts.controller;
 
 import java.io.IOException;
 
