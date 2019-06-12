@@ -67,4 +67,48 @@ public class IngredientDao {
 
 	}
 
+	public List<Ingredient> recupererParIdProduit(Integer idProduit) {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Ingredient> listeIngredient = new ArrayList<>();
+
+		try {
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
+					"select ing_id, ing_nom  from ingredient inner join produit_ingredient on pi_idingredient = ing_id  where pi_idproduit =?");
+			preparedStatement.setInt(1, idProduit);
+			resultSet = preparedStatement.executeQuery();
+			ConnectionUtils.doCommit();
+			while (resultSet.next()) {
+				Integer id = resultSet.getInt("ING_ID");
+				String nom = resultSet.getString("ING_NOM");
+				listeIngredient.add(new Ingredient(id, nom));
+			}
+			return listeIngredient;
+		} catch (SQLException e) {
+			SERVICE_LOG.error("probleme de selection en base", e);
+			throw new TechnicalException("probleme de selection en base", e);
+
+		} finally {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le resultSet", e);
+					throw new TechnicalException("impossible de fermer le resultSet", e);
+				}
+			}
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					SERVICE_LOG.error("impossible de fermer le statement", e);
+					throw new TechnicalException("impossible de fermer le statement", e);
+				}
+			}
+			ConnectionUtils.doClose();
+		}
+
+	}
+
 }

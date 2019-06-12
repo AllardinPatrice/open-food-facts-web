@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
-	import="java.util.List, java.util.ArrayList, fr.openfoodfacts.model.Produit"%>
+	import="java.util.List, java.util.ArrayList, fr.openfoodfacts.model.Produit, fr.openfoodfacts.model.Ingredient"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +21,7 @@ function chargerMarques() {
 <body>
 	<%
 		List<Produit> listePro = (List<Produit>) request.getAttribute("produits");
+		List<Ingredient> listeIng = (List<Ingredient>) request.getAttribute("ingredients");
 	
 	%>
 
@@ -46,6 +47,24 @@ function chargerMarques() {
 
 			</ul>
 			<br>
+		</div>
+		
+		<div class="form-group col-md-4">
+			<label for="inputState">Ingrédients</label> <ul>
+				<%
+				for (Ingredient ingr : listeIng) {
+				%>
+
+					<li><%=ingr.getNom()%></li>
+				
+				<%
+					}
+				%>
+
+			</ul>
+			<br>
+		</div>
+
 		
 	</form>
 	
