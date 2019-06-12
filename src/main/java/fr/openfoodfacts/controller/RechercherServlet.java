@@ -27,8 +27,11 @@ public class RechercherServlet extends HttpServlet {
 		String selectedCateg = req.getParameter("selectedCateg");
 		Integer idCategorie = Integer.parseInt(selectedCateg);
 
+		String selectedMarque = req.getParameter("selectedMarque");
+		Integer idMarque = Integer.parseInt(selectedMarque);
+
 		ProduitDao produitDao = new ProduitDao();
-		List<Produit> produits = produitDao.recupererParCategorie(idCategorie);
+		List<Produit> produits = produitDao.recupererParCategorieEtMarque(idCategorie, idMarque);
 
 		req.setAttribute("produits", produits);
 

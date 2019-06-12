@@ -67,22 +67,29 @@ public class ProduitDao {
 
 	}
 
-	public List<Produit> recupererParCategorie(Integer idCategorie) {
+	public List<Produit> recupererParCategorieEtMarque(Integer idCategorie, Integer idMarque) {
 
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		List<Produit> listeProduit = new ArrayList<>();
 
 		try {
-			preparedStatement = ConnectionUtils.getInstance()
-					.prepareStatement("select * from produit where pdt_categorie=?");
+			preparedStatement = ConnectionUtils.getInstance().prepareStatement(
+					"SELECT PDT_ID, PDT_NOM, CTG_NOM, MRQ_NOM, PDT_NUTRITIONGRADE, PDT_ENERGIE, PDT_GRAISSE FROM openfoodfactbdd.produit INNER JOIN categorie ON CTG_ID = PDT_CATEGORIE INNER JOIN marque on PDT_MARQUE = MRQ_ID where pdt_categorie=? AND pdt_marque=?");
 			preparedStatement.setInt(1, idCategorie);
+			preparedStatement.setInt(2, idMarque);
 			resultSet = preparedStatement.executeQuery();
 			ConnectionUtils.doCommit();
 			while (resultSet.next()) {
 				Integer id = resultSet.getInt("PDT_ID");
 				String nom = resultSet.getString("PDT_NOM");
-				listeProduit.add(new Produit(id, nom));
+				String categorie = resultSet.getString("CTG_NOM");
+				String marque = resultSet.getString("MRQ_NOM");
+				String nutritionGrade = resultSet.getString("PDT_NUTRITIONGRADE");
+				Double energie = resultSet.getDouble("PDT_ENERGIE");
+				Double graisse = resultSet.getDouble("PDT_GRAISSE");
+
+				listeProduit.add(new Produit(id, nom, categorie, marque, nutritionGrade, energie, graisse));
 			}
 			return listeProduit;
 		} catch (SQLException e) {

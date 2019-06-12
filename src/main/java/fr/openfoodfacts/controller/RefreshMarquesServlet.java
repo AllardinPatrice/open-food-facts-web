@@ -21,8 +21,8 @@ import fr.openfoodfacts.model.Marque;
  * @author Patrice
  *
  */
-@WebServlet(urlPatterns = "/init/*")
-public class IniPageController extends HttpServlet {
+@WebServlet(urlPatterns = "/refreshMarques/*")
+public class RefreshMarquesServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,12 +33,17 @@ public class IniPageController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CategorieDao categorieDao = new CategorieDao();
 		List<Categorie> categories = categorieDao.recupererAll();
+
+		Integer categ = Integer.parseInt(req.getParameter("idCateg"));
+
 		MarqueDao marqueDao = new MarqueDao();
-		List<Marque> marques = marqueDao.recupererAll();
+		List<Marque> marques = marqueDao.recupererParCategorie(categ);
 
 		req.setAttribute("cat1", categories);
 		req.setAttribute("mar1", marques);
-		req.setAttribute("affMarques", false);
+
+		req.setAttribute("selectedCat", categ);
+		req.setAttribute("affMarques", true);
 
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/recherche.jsp");
 		requestDispatcher.forward(req, resp);
